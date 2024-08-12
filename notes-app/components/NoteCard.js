@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Button, Text, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Box, IconButton, Text, Flex, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { FaPen } from "react-icons/fa"; // Import icons from react-icons
 
-const NoteCard = ({ note, onDelete }) => {
+const NoteCard = ({ note }) => {
   const router = useRouter();
 
   // Handle card click to navigate to note detail page
@@ -16,14 +17,7 @@ const NoteCard = ({ note, onDelete }) => {
     router.push(`/update-note/${note.id}`); // Navigate to update page
   };
 
-  const handleDelete = async (e) => {
-    e.stopPropagation(); // Prevent click event from bubbling up to the card
-    try {
-      await onDelete(note.id); // Call the delete handler from the parent component
-    } catch (error) {
-      console.error("Error deleting note:", error);
-    }
-  };
+
 
   return (
     <Box
@@ -31,6 +25,7 @@ const NoteCard = ({ note, onDelete }) => {
       borderRadius="md"
       overflow="hidden"
       p={4}
+      height="fit-content"
       boxShadow="md"
       bg="white"
       _hover={{ boxShadow: "lg" }}
@@ -38,14 +33,26 @@ const NoteCard = ({ note, onDelete }) => {
       onClick={handleCardClick} // Handle card click to navigate to detail page
     >
       <Flex direction="column" gap={4}>
-        <Heading size="md" color="gray.800">{note.title}</Heading>
+        <Heading size="md"  color="gray.800">{note.title}</Heading>
         <Text fontSize="sm" color="gray.600">{note.body}</Text>
+       
+        <Flex direction="row" gap={3} mt={4} justify="space-between" align="center">
         <Text fontSize="xs" color="gray.400">Created at: {new Date(note.createdAt).toLocaleString()}</Text>
 
-        <Stack direction="row" spacing={4} mt={4}>
-          <Button colorScheme="teal" onClick={handleEdit}>Edit</Button>
-          <Button colorScheme="red" onClick={handleDelete}>Delete</Button>
-        </Stack>
+          <IconButton
+            aria-label="Edit Note"
+            icon={<FaPen />}
+            bg="black"           
+            color="white"  
+            onClick={handleEdit}
+            rounded="full"
+            _hover={{
+              bg: "gray.700",     // Background color on hover
+              color: "whiteAlpha.900"  // Icon color on hover
+            }}
+          />
+         
+        </Flex>
       </Flex>
     </Box>
   );

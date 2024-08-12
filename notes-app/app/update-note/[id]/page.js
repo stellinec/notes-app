@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { Box, Spinner } from "@chakra-ui/react";
 import Form from "../../../components/Form";
 
 const UpdateNote = () => {
@@ -10,6 +11,7 @@ const UpdateNote = () => {
 
   const [submitting, setIsSubmitting] = useState(false);
   const [note, setNote] = useState({ title: "", body: "" });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch the note details when the component mounts
@@ -27,6 +29,8 @@ const UpdateNote = () => {
         }
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -56,6 +60,14 @@ const UpdateNote = () => {
       setIsSubmitting(false);
     }
   };
+
+  if (loading) {
+    return (
+      <Box display="flex" alignItems="center" justifyContent="center" height="100vh">
+        <Spinner size="xl" />
+      </Box>
+    );
+  }
 
   return (
     <Form
