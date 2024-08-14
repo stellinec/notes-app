@@ -22,7 +22,6 @@ const CreateNote = () => {
         },
         body: JSON.stringify(note),
       });
-console.log("babi" +response)
       if (response.ok) {
         router.push("/");
       }
