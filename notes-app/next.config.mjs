@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    reactStrictMode: true,
+    // Ensure no static export is overriding dynamic routes
+  };
+  
+  export default nextConfig;
+  
