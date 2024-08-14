@@ -14,13 +14,17 @@ export default function Home() {
     const fetchNotes = async () => {
       try {
         const response = await fetch('/api/note'); 
-        if (!response.ok) {
-          throw new Error('Failed to fetch notes');
-        }
-        const data = await response.json();
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Fetched notes:", data);
         setNotes(data);
-      } catch (err) {
-        setError(err.message);
+          
+        }else{
+          console.error("Failed to fetch note details");
+        }
+        
+      } catch (error) {
+        console.error(error);
       } finally {
         setLoading(false);
       }
