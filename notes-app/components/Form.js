@@ -49,7 +49,7 @@ const Form = ({ type, note, setNote, submitting, handleSubmit }) => {
           <Button
             type="submit"
             isLoading={submitting}
-            loadingText={"Creating..."}
+            loadingText={`${type}...`}
             colorScheme="orange"
             
             rounded="full"

@@ -13,18 +13,19 @@ export default function Home() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await fetch('/api/note'); 
+        const response = await fetch('/api/note', { cache: 'no-store' });
         if (response.ok) {
           const data = await response.json();
           console.log("Fetched notes:", data);
-        setNotes(data);
-          
-        }else{
-          console.error("Failed to fetch note details");
+          setNotes(data);
+        } else {
+          const errorMessage = `Failed to fetch notes: ${response.statusText}`;
+          console.error(errorMessage);
+          setError(errorMessage);
         }
-        
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching notes:", error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -33,16 +34,9 @@ export default function Home() {
     fetchNotes();
   }, []);
 
-
-
   if (loading) {
     return (
-      <Flex
-        align="center"
-        justify="center"
-        height="100vh" // Full viewport height
-        width="100vw"
-      >
+      <Flex align="center" justify="center" height="100vh" width="100vw">
         <Spinner size="xl" />
       </Flex>
     );
@@ -55,7 +49,13 @@ export default function Home() {
   return (
     <Flex direction="column" p={4} gap={4} mt={6}>
       <Flex align="center" justify="center" direction="column">
-        <Heading as="h1" size="xl" fontFamily="Montserrat" bgGradient="linear(to-r, blue.400, blue.600)" bgClip="text">
+        <Heading
+          as="h1"
+          size="xl"
+          fontFamily="Montserrat"
+          bgGradient="linear(to-r, blue.400, blue.600)"
+          bgClip="text"
+        >
           Welcome to MyNote
         </Heading>
         <Text>🎀 Welcome to your little corner of creativity!🌸</Text>
@@ -76,9 +76,7 @@ export default function Home() {
         gap={4}
       >
         {notes.length > 0 ? (
-          notes.map((note) => (
-            <NoteCard key={note.id} note={note} />
-          ))
+          notes.map((note) => <NoteCard key={note.id} note={note} />)
         ) : (
           <Flex align="center" justify="center" gridColumn="span 3">
             <p>No notes available</p>
