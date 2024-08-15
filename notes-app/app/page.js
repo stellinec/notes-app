@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     <Flex direction="column" p={4} gap={4} mt={6}>
-      <Flex align="center" justify="center" direction="column">
+      <Flex textAlign="center" align="center" justify="center" direction="column">
         <Heading
           as="h1"
           size="xl"
