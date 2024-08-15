@@ -7,14 +7,13 @@ import Form from "../../../components/Form";
 
 const UpdateNote = () => {
   const router = useRouter();
-  const { id } = useParams(); // Get the note ID from the URL
+  const { id } = useParams(); 
 
   const [submitting, setIsSubmitting] = useState(false);
   const [note, setNote] = useState({ title: "", body: "" });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the note details when the component mounts
     const fetchNote = async () => {
       try {
         const response = await fetch(`/api/note/${id}`);

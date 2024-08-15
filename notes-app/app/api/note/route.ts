@@ -2,37 +2,34 @@ import { NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
 
 export async function GET(req: Request) {
-  console.log("Fetching notes..."); // Debug log
-
-  // Extract query parameters from the request URL
+  console.log("Fetching notes..."); 
   const url = new URL(req.url);
   const title = url.searchParams.get('title') || '';
-  const sort = url.searchParams.get('sort') || 'createdAt'; // default sort field
-  const order = url.searchParams.get('order') || 'desc'; // default sort order
+  const sort = url.searchParams.get('sort') || 'createdAt';
+  const order = url.searchParams.get('order') || 'desc'; 
 
   try {
-    // Construct the Prisma query dynamically based on parameters
     const notes = await prisma.note.findMany({
       where: {
         title: {
-          contains: title, // Filter notes by title if provided
-          mode: 'insensitive' // Case-insensitive search
+          contains: title, 
+          mode: 'insensitive' 
         }
       },
       orderBy: {
-        [sort]: order.toLowerCase() === 'asc' ? 'asc' : 'desc' // Sort based on parameters
+        [sort]: order.toLowerCase() === 'asc' ? 'asc' : 'desc' 
       }
     });
 
-    console.log("Notes fetched:", notes); // Debug log
+    console.log("Notes fetched:", notes);
 
-    // Return the response with notes directly
+  
     return NextResponse.json(notes, {
       status: 200,
       headers: { 
-        "Cache-Control": "no-cache, no-store, must-revalidate", // Prevent caching
-        "Pragma": "no-cache", // For HTTP/1.0 caches
-        "Expires": "0", // For HTTP/1.0 caches
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache", 
+        "Expires": "0", 
       },
     });
   } catch (error) {

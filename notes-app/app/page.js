@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button, Flex, Heading, Spinner, Text, Box } from "@chakra-ui/react";
 import Link from "next/link";
-import NoteCard from "../components/NoteCard"; // Adjust the path as needed
+import NoteCard from "../components/NoteCard";
 
 export default function Home() {
   const [notes, setNotes] = useState([]);

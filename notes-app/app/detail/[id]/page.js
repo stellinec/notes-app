@@ -7,7 +7,7 @@ import Link from "next/link";
 import {  FaTrash } from "react-icons/fa";
 const Detail = () => {
   const router = useRouter();
-  const { id } = useParams(); // Get the note ID from the URL
+  const { id } = useParams(); 
 
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -39,7 +39,7 @@ const Detail = () => {
       });
 
       if (response.ok) {
-        router.push("/"); // Redirect to home page after deletion
+        router.push("/"); 
       } else {
         console.error("Failed to delete note");
       }
@@ -53,7 +53,7 @@ const Detail = () => {
       <Flex
         align="center"
         justify="center"
-        height="100vh" // Full viewport height
+        height="100vh" 
         width="100vw"
       >
         <Spinner size="xl" />
@@ -68,7 +68,7 @@ const Detail = () => {
   return (
     <Flex
       direction="column"
-      minHeight="100vh" // Ensure the container takes at least the full viewport height
+      minHeight="100vh" 
     >
       <Box p={4} maxW="xl" mx="auto" mt={8} flex="1">
         <Flex align="center" justify="space-between">

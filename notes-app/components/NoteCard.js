@@ -2,19 +2,19 @@
 
 import { Box, IconButton, Text, Flex, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { FaPen } from "react-icons/fa"; // Import icons from react-icons
+import { FaPen } from "react-icons/fa"; 
 
 const NoteCard = ({ note }) => {
   const router = useRouter();
 
-  // Handle card click to navigate to note detail page
+ 
   const handleCardClick = () => {
-    router.push(`/detail/${note.id}`); // Navigate to detail page with note ID
+    router.push(`/detail/${note.id}`); 
   };
 
   const handleEdit = (e) => {
-    e.stopPropagation(); // Prevent click event from bubbling up to the card
-    router.push(`/update-note/${note.id}`); // Navigate to update page
+    e.stopPropagation(); 
+    router.push(`/update-note/${note.id}`); 
   };
 
 
@@ -30,7 +30,7 @@ const NoteCard = ({ note }) => {
       bg="white"
       _hover={{ boxShadow: "lg" }}
       cursor="pointer"
-      onClick={handleCardClick} // Handle card click to navigate to detail page
+      onClick={handleCardClick} 
     >
       <Flex direction="column" gap={4}>
         <Heading size="md"  color="gray.800">{note.title}</Heading>
@@ -47,8 +47,8 @@ const NoteCard = ({ note }) => {
             onClick={handleEdit}
             rounded="full"
             _hover={{
-              bg: "gray.700",     // Background color on hover
-              color: "whiteAlpha.900"  // Icon color on hover
+              bg: "gray.700",     
+              color: "whiteAlpha.900"  
             }}
           />
          
